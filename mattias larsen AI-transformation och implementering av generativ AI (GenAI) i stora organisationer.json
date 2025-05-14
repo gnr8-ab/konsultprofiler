@@ -1,0 +1,55 @@
+{
+  "name": "Mattias Larsen",
+  "email": "",
+  "phone": "",
+  "linkedin": "",
+  "location": "",
+  "role": "AI Transformationsledare | GenAI Konceptutvecklare | Digital Strateg",
+  "level": "",
+  "summary": "Mattias är en innovativ transformationsledare med en unik förmåga att omsätta komplexa teknologier till konkret affärsvärde. Han har djupgående erfarenhet av att leda omfattande AI-transformationer i stora organisationer som ASSA ABLOY, Telia och ICA.\n\nGenom att kombinera teknisk expertis med strategiskt affärstänkande har han konsekvent levererat exceptionella resultat - från att öka kampanjengagemang med 92% genom datadriven personalisering till att accelerera utvecklingsprocesser från veckor till timmar genom GenAI-implementation.\n\nHans särskilda styrka ligger i att bygga självförbättrande organisationer genom att kombinera teknisk innovation med kulturförändring. Detta demonstreras i hans nuvarande roll på ASSA ABLOY där han driver strategisk kompetensuppbyggnad inom GenAI genom praktisk tillämpning och engagerande kunskapsdelning.",
+  "expertise": [
+    "GenAI Konceptutveckling & Implementation",
+    "AI-driven Innovation & Transformation",
+    "Förändringsledning & Kulturbyggande",
+    "Data Governance & Compliance",
+    "Agil Transformation & SAFe",
+    "Kompetensutveckling & Community Building"
+  ],
+  "technologies": [
+    "GenAI (Copilot, ChatGPT)",
+    "RAG",
+    "Prediktiv analys",
+    "Python",
+    "React",
+    "FastAPI",
+    "Azure",
+    "AWS",
+    "Google Cloud"
+  ],
+  "methods": [
+    "Hypotesdriven utveckling",
+    "Agil utveckling",
+    "SAFe",
+    "DevOps",
+    "ITIL",
+    "Community Building"
+  ],
+  "tools": [
+    "Jira",
+    "Confluence",
+    "PowerBI",
+    "GitHub",
+    "Copilot",
+    "ChatGPT"
+  ],
+  "languages": [
+    {"language": "Swedish", "level": "Modersmål"},
+    {"language": "English", "level": "Flytande i tal och skrift"}
+  ],
+  "education": [
+    {"institution": "Uppsala Universitet", "focus": "MSc Teknisk Fysik", "period": "1998 - 2004"}
+  ],
+  "certifications": ["", ""],
+  "employment_type": "Consultant",
+  "employment_by": "GNR8"
+}
