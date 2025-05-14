@@ -52,14 +52,10 @@ You will generate a consultant profile in JSON format. The output must be:
   ],
 
 
-
   "email": "",
   "phone": "",
   "linkedin": "",
   "location": "",
-  "role": "",
-  "level": "",
-
 
 
   "technologies": ["", "", ""],
@@ -67,7 +63,8 @@ You will generate a consultant profile in JSON format. The output must be:
   "tools": ["", "", ""],
   "languages": [
     {"language": "Swedish", "level": ""},
-    {"language": "English", "level": ""}
+    {"language": "English", "level": ""},
+    {"language": "Spanish", "level": ""}
   ],
   "education": [
     {"institution": "", "focus": "", "period": ""},
