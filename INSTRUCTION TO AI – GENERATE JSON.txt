@@ -1,0 +1,78 @@
+🎯 INSTRUCTION TO AI – GENERATE CONSULTANT PROFILE IN JSON FORMAT
+You will generate a consultant profile in JSON format. The output must be:
+- 100% valid JSON (no YAML or pseudo-JSON)
+- Visually readable (proper indentation)
+- All fields must be included, even if empty (e.g., "" or [])
+- Only the JSON block should be returned – no headers or explanations
+
+📌 LANGUAGE GUIDELINES
+- All field names (keys) must always be in **English**
+- Content values (e.g., summary, descriptions) can be written in either **Swedish or English**, depending on the context or instructions
+- This allows compatibility with automation and layout tools, while preserving the original working language of the consultant
+
+📌 STRUCTURAL REQUIREMENTS (APPLIED TO MULTIPLE FIELDS)
+- All long texts ("summary" and each "description" in "assignments") should be written in multiple paragraphs
+- Each paragraph should contain 1–3 sentences
+- Use \n\n (double newline) to indicate paragraph breaks
+- All strings must be enclosed in double quotes ("")
+- JSON must not include comments or any content outside the block
+
+📌 SLOGAN GUIDELINES
+- Create a professional value proposition using 2-5 concise descriptors
+- Use vertical bar (|) as a separator between professional titles
+- Focus on unique professional positioning and core competencies
+- Example: "AI Transformationsledare | GenAI Konceptutvecklare | Digital Strateg"
+
+📄 EXAMPLE OF PROPERLY FORMATTED SUMMARY WITH PARAGRAPH BREAKS
+"summary": "Josefine är en passionerad UX & UI Lead och Design Manager med starkt fokus på användarcentrerad design.\n\nHon kombinerar strategisk förståelse med ett praktiskt ledarskap och skapar miljöer där designidéer får utrymme att växa.\n\nHennes främsta styrka är att identifiera och lyfta fram varje designers unika förmåga. Hon ser till att designen inte bara blir snygg, utan verkligen användbar och genomtänkt.",
+
+🧱 JSON STRUCTURE TO FILL IN:
+{
+  "name": "",
+  "slogan": "",
+  "summary": "",
+
+  "expertise": ["", "", ""],
+
+  "assignment": [
+    {
+      "role": "",
+      "client": "",
+      "period": "",
+      "description": ""
+    },
+    {
+      "role": "",
+      "client": "",
+      "period": "",
+      "description": ""
+    }
+  ],
+
+
+
+  "email": "",
+  "phone": "",
+  "linkedin": "",
+  "location": "",
+  "role": "",
+  "level": "",
+
+
+
+  "technologies": ["", "", ""],
+  "methods": ["", "", ""],
+  "tools": ["", "", ""],
+  "languages": [
+    {"language": "Swedish", "level": ""},
+    {"language": "English", "level": ""}
+  ],
+  "education": [
+    {"institution": "", "focus": "", "period": ""},
+    {"institution": "", "focus": "", "period": ""}
+  ],
+  "certifications": ["", ""],
+
+  "employment_type": "Consultant",
+  "employment_by": "GNR8"
+}
