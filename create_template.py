@@ -40,7 +40,7 @@ def create_template():
     # Summary section
     summary_heading = doc.add_heading('Sammanfattning', level=1)
     for run in summary_heading.runs:
-        set_font(run, 'San Sefiro', 56, True, heading_color)
+        set_font(run, 'San Sefiro', 26, True, heading_color)
     
     summary_para = doc.add_paragraph()
     summary_run = summary_para.add_run('{{summary}}')
@@ -50,7 +50,7 @@ def create_template():
     # Expertise section
     expertise_heading = doc.add_heading('Expertis', level=1)
     for run in expertise_heading.runs:
-        set_font(run, 'San Sefiro', 56, True, heading_color)
+        set_font(run, 'San Sefiro', 26, True, heading_color)
     
     expertise_para = doc.add_paragraph()
     expertise_run = expertise_para.add_run('{% for skill in expertise %}{{skill}}{% if not loop.last %}, {% endif %}{% endfor %}')
@@ -60,7 +60,7 @@ def create_template():
     # Assignments section
     assignments_heading = doc.add_heading('Uppdrag', level=1)
     for run in assignments_heading.runs:
-        set_font(run, 'San Sefiro', 56, True, heading_color)
+        set_font(run, 'San Sefiro', 26, True, heading_color)
     
     doc.add_paragraph('{% for assignment in assignment %}')
     
