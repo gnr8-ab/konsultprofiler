@@ -39,13 +39,15 @@ You will generate a consultant profile in JSON format. The output must be:
       "role": "",
       "client": "",
       "period": "",
-      "description": ""
+      "description": "",
+      "approach": ""
     },
     {
       "role": "",
       "client": "",
       "period": "",
-      "description": ""
+      "description": "",
+      "approach": ""
     }
   ],
 
