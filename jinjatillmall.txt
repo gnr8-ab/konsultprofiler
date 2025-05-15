@@ -1,0 +1,65 @@
+{{ name }}
+
+{{ role }}
+
+{{ summary }}
+
+Expertis
+
+{% for expertis in expertise %}
+· {{ expertis }}
+{% endfor %}
+
+Urval av Uppdrag
+
+{% for assignment in assignments %}
+**{{ assignment.role }}**
+{{ assignment.client }} ({{ assignment.period }})
+· {{ assignment.description }}
+{% if not loop.last %}
+
+---
+{% endif %}
+{% endfor %}
+
+Utbildning
+
+{% for education in education %}
+· {{ education.institution }}, {{ education.focus }} ({{ education.period }})
+{% endfor %}
+
+Språk
+
+{% for lang in languages %}
+· {{ lang.language }} – {{ lang.level }}
+{% endfor %}
+
+Certifieringar
+
+{% for certification in certifications %}
+· {{ certification }}
+{% endfor %}
+
+Teknologier
+
+{% for technology in technologies %}
+· {{ technology }}
+{% endfor %}
+
+Metoder
+
+{% for method in methods %}
+· {{ method }}
+{% endfor %}
+
+Verktyg
+
+{% for tool in tools %}
+· {{ tool }}
+{% endfor %}
+
+Kontaktuppgifter
+
+E-post: {{ email }}
+Telefon: {{ phone }}
+Ort: {{ location }}
