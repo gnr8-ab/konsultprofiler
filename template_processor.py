@@ -85,7 +85,23 @@ def main():
         return
     
     # Generate output filename
-    output_path = generate_output_filename(json_file_path)
+    base_name = os.path.splitext(os.path.basename(json_file_path))[0]
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    default_filename = f"{base_name}_{timestamp}.docx"
+    
+    # Let user choose where to save the file
+    root = tk.Tk()
+    root.withdraw()
+    output_path = filedialog.asksaveasfilename(
+        title="Välj var du vill spara den genererade filen",
+        defaultextension=".docx",
+        initialfile=default_filename,
+        filetypes=[("Word documents", "*.docx"), ("All files", "*.*")]
+    )
+    
+    if not output_path:
+        print("Ingen sparplats valdes. Avslutar programmet.")
+        return
     
     # Process the template
     process_template(template_path, output_path, context)
