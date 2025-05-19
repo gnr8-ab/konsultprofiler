@@ -6,8 +6,8 @@ You will generate a consultant profile in JSON format. The output must be:
 - Only the JSON block should be returned – no headers or explanations
 
 📌 LANGUAGE GUIDELINES
-- All field names (keys) must always be in **English**
-- Content values (e.g., summary, descriptions) can be written in either **Swedish or English**, depending on the context or instructions
+- All field names (keys) must always be in English
+- Content values (e.g., summary, descriptions) can be written in either Swedish or English, depending on the context or instructions
 - This allows compatibility with automation and layout tools, while preserving the original working language of the consultant
 
 📌 STRUCTURAL REQUIREMENTS (APPLIED TO MULTIPLE FIELDS)
