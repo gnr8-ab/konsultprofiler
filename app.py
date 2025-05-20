@@ -1,6 +1,48 @@
 import streamlit as st
 import json
 import os
+from docxtpl import DocxTemplate
+from datetime import datetime
+
+def generate_output_filename(json_file_path):
+    """
+    Generates an output filename based on the input JSON filename and current timestamp.
+    """
+    # Get the base name without extension
+    base_name = os.path.splitext(os.path.basename(json_file_path))[0]
+    # Get current timestamp
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    return f"{base_name}_{timestamp}.docx"
+
+def process_template(data, output_filename):
+    """
+    Process a Word template using JSON data and return the document bytes.
+    """
+    # Path to your template
+    template_path = "Mall 0.2.docx"
+    
+    try:
+        # Load the template
+        doc = DocxTemplate(template_path)
+        
+        # Render the template with the provided context
+        doc.render(data)
+        
+        # Save to a temporary file and read bytes
+        temp_path = f"temp_{output_filename}"
+        doc.save(temp_path)
+        
+        with open(temp_path, 'rb') as file:
+            doc_bytes = file.read()
+        
+        # Clean up temporary file
+        os.remove(temp_path)
+        
+        return doc_bytes
+        
+    except Exception as e:
+        st.error(f"Fel vid bearbetning av mall: {str(e)}")
+        return None
 
 st.title("Konsultprofil Generator")
 
@@ -167,15 +209,31 @@ if uploaded_file is not None:
         with col2:
             data['employment_by'] = st.text_input("Anställs av", value=data.get('employment_by', 'GNR8'))
         
-        # Save button
-        if st.button("Spara ändringar"):
-            # Create a download button for the modified JSON
-            st.download_button(
-                label="Ladda ner uppdaterad JSON",
-                data=json.dumps(data, indent=2, ensure_ascii=False),
-                file_name="updated_profile.json",
-                mime="application/json"
-            )
+        # Action buttons in columns
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            if st.button("Spara JSON"):
+                # Create a download button for the modified JSON
+                st.download_button(
+                    label="Ladda ner uppdaterad JSON",
+                    data=json.dumps(data, indent=2, ensure_ascii=False),
+                    file_name="updated_profile.json",
+                    mime="application/json"
+                )
+        
+        with col2:
+            if st.button("Generera Word-dokument"):
+                output_filename = generate_output_filename(uploaded_file.name)
+                doc_bytes = process_template(data, output_filename)
+                
+                if doc_bytes:
+                    st.download_button(
+                        label="Ladda ner Word-dokument",
+                        data=doc_bytes,
+                        file_name=output_filename,
+                        mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                    )
             
     except json.JSONDecodeError:
         st.error("Felaktigt JSON-format. Vänligen ladda upp en giltig JSON-fil.")
