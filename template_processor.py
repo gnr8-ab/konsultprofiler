@@ -27,11 +27,9 @@ def load_json_data(file_path):
             data = json.load(file)
         return data
     except json.JSONDecodeError as e:
-        print(f"Fel vid läsning av JSON-filen: {str(e)}")
-        return None
+        raise Exception(f"Fel vid läsning av JSON-filen: {str(e)}")
     except Exception as e:
-        print(f"Ett fel uppstod: {str(e)}")
-        return None
+        raise Exception(f"Ett fel uppstod: {str(e)}")
 
 def generate_output_filename(json_file_path):
     """
@@ -43,15 +41,27 @@ def generate_output_filename(json_file_path):
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     return f"{base_name}_{timestamp}.docx"
 
-def process_template(template_path, output_path, context):
+def process_template(json_file_path, output_dir):
     """
-    Process a Word template using Jinja templating.
+    Process a Word template using JSON data and save to specified output directory.
     
     Args:
-        template_path (str): Path to the .docx template file
-        output_path (str): Path where the processed document should be saved
-        context (dict): Dictionary containing the variables to be used in the template
+        json_file_path (str): Path to the JSON file containing template data
+        output_dir (str): Directory where the processed document should be saved
+    
+    Returns:
+        str: Path to the generated document
     """
+    # Path to your template
+    template_path = "Mall 0.2.docx"
+    
+    # Load JSON data
+    context = load_json_data(json_file_path)
+    
+    # Generate output filename and path
+    output_filename = generate_output_filename(json_file_path)
+    output_path = os.path.join(output_dir, output_filename)
+    
     try:
         # Load the template
         doc = DocxTemplate(template_path)
@@ -61,15 +71,12 @@ def process_template(template_path, output_path, context):
         
         # Save the rendered document
         doc.save(output_path)
-        print(f"Dokument har genererats: {output_path}")
+        return output_path
         
     except Exception as e:
-        print(f"Fel vid bearbetning av mall: {str(e)}")
+        raise Exception(f"Fel vid bearbetning av mall: {str(e)}")
 
 def main():
-    # Path to your template
-    template_path = "Mall 0.2.docx"
-    
     # Let user select JSON file
     print("Välj en JSON-fil med data för mallen...")
     json_file_path = select_json_file()
@@ -78,33 +85,22 @@ def main():
         print("Ingen fil valdes. Avslutar programmet.")
         return
     
-    # Load JSON data
-    context = load_json_data(json_file_path)
-    if not context:
-        print("Kunde inte läsa in JSON-data. Avslutar programmet.")
-        return
-    
-    # Generate output filename
-    base_name = os.path.splitext(os.path.basename(json_file_path))[0]
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    default_filename = f"{base_name}_{timestamp}.docx"
-    
-    # Let user choose where to save the file
+    # Let user choose output directory
     root = tk.Tk()
     root.withdraw()
-    output_path = filedialog.asksaveasfilename(
-        title="Välj var du vill spara den genererade filen",
-        defaultextension=".docx",
-        initialfile=default_filename,
-        filetypes=[("Word documents", "*.docx"), ("All files", "*.*")]
+    output_dir = filedialog.askdirectory(
+        title="Välj utmapp för den genererade filen"
     )
     
-    if not output_path:
-        print("Ingen sparplats valdes. Avslutar programmet.")
+    if not output_dir:
+        print("Ingen utmapp valdes. Avslutar programmet.")
         return
     
-    # Process the template
-    process_template(template_path, output_path, context)
+    try:
+        output_path = process_template(json_file_path, output_dir)
+        print(f"Dokument har genererats: {output_path}")
+    except Exception as e:
+        print(f"Ett fel uppstod: {str(e)}")
 
 if __name__ == "__main__":
     main() 
