@@ -12,7 +12,7 @@ Detta projekt innehåller också instruktionsfilen `INSTRUCTION TO AI – GENERA
 1. Installera Python 3.x om du inte redan har det
 2. Installera uv:
 ```bash
-pip install uv
+pip install --user uv
 ```
 3. Skapa och aktivera en virtuell miljö:
 ```bash
@@ -21,14 +21,14 @@ uv venv
 ```
 4. Installera beroenden:
 ```bash
-uv pip sync
+uv pip install docxtpl
 ```
 
 ### Mac
 1. Installera Python 3.x om du inte redan har det
 2. Installera uv:
 ```bash
-pip install uv
+pip install --user uv
 ```
 3. Skapa och aktivera en virtuell miljö:
 ```bash
@@ -37,7 +37,7 @@ source .venv/bin/activate
 ```
 4. Installera beroenden:
 ```bash
-uv pip sync
+uv pip install docxtpl
 ```
 
 ## Användning
@@ -58,4 +58,5 @@ python template_processor.py
 - `template_processor.py` - Huvudprogrammet som genererar dokument
 - `Mall 0.2.docx` - Word-mall som används som bas för genereringen
 - `INSTRUCTION TO AI – GENERATE JSON.txt` - Mall för att generera konsultprofiler via Claude AI
+- `pyproject.toml` - Projektkonfiguration och beroenden
 - JSON-fil - Innehåller data som ska användas i dokumentet (skapas via Claude AI) 
