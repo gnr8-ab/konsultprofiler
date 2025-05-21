@@ -46,6 +46,23 @@ def process_template(data, output_filename):
 
 st.title("Konsultprofil Generator")
 
+# Add Claude AI guidance section
+st.markdown("""
+### Steg 1: Skapa din konsultprofil med Claude AI
+Innan du börjar redigera din profil i denna app, behöver du först skapa en grundläggande profil med hjälp av Claude AI. 
+Detta hjälper dig att:
+- Analysera din LinkedIn-profil
+- Utvärdera tidigare konsultprofiler
+- Skapa en strukturerad JSON-fil med all nödvändig information
+
+1. Gå till [Claude AI-projektet](https://claude.ai/project/0196cdc8-e6ff-73d0-aff6-38ac9e6f57af)
+2. Följ instruktionerna för att skapa din profil
+3. Ladda ner den genererade JSON-filen
+4. Fortsätt till steg 2 nedan för att redigera och finjustera din profil
+
+---
+""")
+
 # File uploader for input file
 uploaded_file = st.file_uploader("Välj en JSON-fil att redigera", type=['json'])
 
