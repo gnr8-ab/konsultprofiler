@@ -17,4 +17,7 @@ managed = true
 dev-dependencies = []
 
 [tool.hatch.metadata]
-allow-direct-references = true 
+allow-direct-references = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/konsultprofiler"] 

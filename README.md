@@ -48,7 +48,7 @@ uv pip install docxtpl streamlit
 
 2. Kör Python-programmet:
 ```bash
-python template_processor.py
+python src/konsultprofiler/template_processor.py
 ```
 
 3. Följ instruktionerna i programmet:
@@ -58,7 +58,7 @@ python template_processor.py
 ### Streamlit webbapplikation
 1. Starta Streamlit-appen:
 ```bash
-streamlit run app.py
+streamlit run src/konsultprofiler/app.py
 ```
 
 2. Öppna webbläsaren på den angivna adressen (vanligtvis http://localhost:8501)
@@ -68,8 +68,11 @@ streamlit run app.py
 
 ## Filstruktur
 
-- `template_processor.py` - Huvudprogrammet som genererar dokument
-- `app.py` - Streamlit-webbapplikationen för att redigera profiler
+- `src/konsultprofiler/` - Huvudkatalog för Python-koden
+  - `template_processor.py` - Huvudprogrammet som genererar dokument
+  - `app.py` - Streamlit-webbapplikationen för att redigera profiler
+  - `gui.py` - GUI-komponenter för applikationen
+  - `analyze_template.py` - Hjälpfunktioner för mallanalys
 - `Mall 0.2.docx` - Word-mall som används som bas för genereringen
 - `INSTRUCTION TO AI – GENERATE JSON.txt` - Mall för att generera konsultprofiler via Claude AI
 - `pyproject.toml` - Projektkonfiguration och beroenden
