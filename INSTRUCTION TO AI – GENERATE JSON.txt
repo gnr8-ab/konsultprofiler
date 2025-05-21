@@ -4,6 +4,7 @@ You will generate a consultant profile in JSON format. The output must be:
 - Visually readable (proper indentation)
 - All fields must be included, even if empty (e.g., "" or [])
 - Only the JSON block should be returned – no headers or explanations
+- Create JSON with artefact
 
 📌 LANGUAGE GUIDELINES
 - All field names (keys) must always be in English
