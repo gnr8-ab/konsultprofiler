@@ -1,8 +1,11 @@
 import streamlit as st
 import json
 import os
-from docxtpl import DocxTemplate
+from docxtpl import DocxTemplate, InlineImage
 from datetime import datetime
+from docx.shared import Mm
+from PIL import Image
+import io
 
 def generate_output_filename(json_file_path):
     """
@@ -14,9 +17,14 @@ def generate_output_filename(json_file_path):
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     return f"{base_name}_{timestamp}.docx"
 
-def process_template(data, output_filename):
+def process_template(data, output_filename, image_file=None):
     """
     Process a Word template using JSON data and return the document bytes.
+    
+    Args:
+        data (dict): The JSON data to use in the template
+        output_filename (str): The name of the output file
+        image_file (UploadedFile, optional): The uploaded image file
     """
     # Path to your template
     template_path = "Mall 0.2.docx"
@@ -25,12 +33,48 @@ def process_template(data, output_filename):
         # Load the template
         doc = DocxTemplate(template_path)
         
+        # Handle image if provided
+        if image_file is not None:
+            # Read image and get dimensions
+            image = Image.open(io.BytesIO(image_file.getvalue()))
+            width, height = image.size
+            
+            # Calculate aspect ratio
+            aspect_ratio = height / width
+            
+            # Base width in mm
+            base_width = 40
+            
+            # Calculate height in mm maintaining aspect ratio
+            height_mm = base_width * aspect_ratio
+            
+            # Check if image is in portrait format (height > width)
+            if height <= width:
+                st.warning("""
+                Bilden bör vara i porträttformat (högre än bred). 
+                Rekommenderat format är 3:4 eller 4:5.
+                """)
+            
+            # Save the uploaded image to a temporary file
+            temp_image_path = f"temp_image_{image_file.name}"
+            with open(temp_image_path, "wb") as f:
+                f.write(image_file.getvalue())
+            
+            # Create InlineImage object with both width and height
+            data['profile_image'] = InlineImage(doc, temp_image_path, width=Mm(base_width), height=Mm(height_mm))
+        else:
+            data['profile_image'] = None
+        
         # Render the template with the provided context
         doc.render(data)
         
         # Save to a temporary file and read bytes
         temp_path = f"temp_{output_filename}"
         doc.save(temp_path)
+        
+        # Clean up temporary image file (after doc.save!)
+        if image_file is not None:
+            os.remove(temp_image_path)
         
         with open(temp_path, 'rb') as file:
             doc_bytes = file.read()
@@ -63,8 +107,31 @@ Detta hjälper dig att:
 ---
 """)
 
-# File uploader for input file
-uploaded_file = st.file_uploader("Välj en JSON-fil att redigera", type=['json'])
+# File upload section
+st.subheader("Steg 2: Ladda upp filer")
+st.markdown("""
+För att skapa din konsultprofil behöver du ladda upp två filer:
+1. En JSON-fil med din profilinformation
+2. En profilbild i porträttformat
+""")
+
+# Create two columns for file uploaders
+col1, col2 = st.columns(2)
+
+with col1:
+    st.markdown("**JSON-fil med profilinformation**")
+    uploaded_file = st.file_uploader("Välj JSON-fil", type=['json'], key="json_upload")
+
+with col2:
+    st.markdown("**Profilbild**")
+    st.markdown("""
+    **Viktigt om profilbilden:**
+    - Bilden ska vara i porträttformat (högre än bred)
+    - Rekommenderade proportioner: 3:4 eller 4:5
+    - Stöds format: PNG, JPG, JPEG, GIF
+    - Bilden kommer att visas i Word-dokumentet med en bredd på 40mm
+    """)
+    image_file = st.file_uploader("Välj profilbild", type=['png', 'jpg', 'jpeg', 'gif'], key="profile_image")
 
 if uploaded_file is not None:
     # Read the uploaded file
@@ -73,7 +140,7 @@ if uploaded_file is not None:
         data = json.loads(content)
         
         # Display and edit the data
-        st.subheader("Grundläggande information")
+        st.subheader("Steg 3: Redigera din profil")
         
         # Basic information
         data['name'] = st.text_input("Namn", value=data.get('name', ''))
@@ -242,7 +309,7 @@ if uploaded_file is not None:
         with col2:
             if st.button("Generera Word-dokument"):
                 output_filename = generate_output_filename(uploaded_file.name)
-                doc_bytes = process_template(data, output_filename)
+                doc_bytes = process_template(data, output_filename, image_file)
                 
                 if doc_bytes:
                     st.download_button(

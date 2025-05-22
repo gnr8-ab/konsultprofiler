@@ -1,9 +1,10 @@
-from docxtpl import DocxTemplate
+from docxtpl import DocxTemplate, InlineImage
 import os
 import json
 from datetime import datetime
 import tkinter as tk
 from tkinter import filedialog
+from docx.shared import Mm  # For image sizing
 
 def select_json_file():
     """
@@ -15,6 +16,22 @@ def select_json_file():
     file_path = filedialog.askopenfilename(
         title="Välj JSON-fil",
         filetypes=[("JSON files", "*.json"), ("All files", "*.*")]
+    )
+    return file_path if file_path else None
+
+def select_image_file():
+    """
+    Opens a file dialog for selecting an image file.
+    Returns the selected file path or None if cancelled.
+    """
+    root = tk.Tk()
+    root.withdraw()  # Hide the main window
+    file_path = filedialog.askopenfilename(
+        title="Välj profilbild",
+        filetypes=[
+            ("Bildfiler", "*.png *.jpg *.jpeg *.gif"),
+            ("Alla filer", "*.*")
+        ]
     )
     return file_path if file_path else None
 
@@ -41,13 +58,14 @@ def generate_output_filename(json_file_path):
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     return f"{base_name}_{timestamp}.docx"
 
-def process_template(json_file_path, output_dir):
+def process_template(json_file_path, output_dir, image_path=None):
     """
     Process a Word template using JSON data and save to specified output directory.
     
     Args:
         json_file_path (str): Path to the JSON file containing template data
         output_dir (str): Directory where the processed document should be saved
+        image_path (str, optional): Path to the profile image
     
     Returns:
         str: Path to the generated document
@@ -65,6 +83,12 @@ def process_template(json_file_path, output_dir):
     try:
         # Load the template
         doc = DocxTemplate(template_path)
+        
+        # Handle image if provided
+        if image_path and os.path.exists(image_path):
+            context['profile_image'] = InlineImage(doc, image_path, width=Mm(40))
+        else:
+            context['profile_image'] = None
         
         # Render the template with the provided context
         doc.render(context)
@@ -96,8 +120,19 @@ def main():
         print("Ingen utmapp valdes. Avslutar programmet.")
         return
     
+    # Ask if user wants to add a profile image
+    print("\nVill du lägga till en profilbild? (j/n)")
+    add_image = input().lower().startswith('j')
+    
+    image_path = None
+    if add_image:
+        print("Välj en profilbild...")
+        image_path = select_image_file()
+        if not image_path:
+            print("Ingen bild valdes. Fortsätter utan profilbild.")
+    
     try:
-        output_path = process_template(json_file_path, output_dir)
+        output_path = process_template(json_file_path, output_dir, image_path)
         print(f"Dokument har genererats: {output_path}")
     except Exception as e:
         print(f"Ett fel uppstod: {str(e)}")
