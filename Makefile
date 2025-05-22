@@ -1,4 +1,4 @@
-.PHONY: venv activate sync run
+.PHONY: venv activate sync run stop
 
 venv:
 	uv venv
@@ -14,4 +14,7 @@ run:
 
 setup: venv activate sync
 
-all: setup run 
+all: setup run
+
+stop:
+	-@rmdir /s /q .venv 2>nul || rm -rf .venv 
