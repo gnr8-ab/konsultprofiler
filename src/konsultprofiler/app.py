@@ -27,7 +27,7 @@ def process_template(data, output_filename, image_file=None):
         image_file (UploadedFile, optional): The uploaded image file
     """
     # Path to your template
-    template_path = "Mall 0.2.docx"
+    template_path = "Mall 0.3.docx"
     
     try:
         # Load the template
@@ -65,6 +65,8 @@ def process_template(data, output_filename, image_file=None):
         else:
             data['profile_image'] = None
         
+        # Lägg till 'assignments' för kompatibilitet med mallen
+        data['assignments'] = data.get('assignment', [])
         # Render the template with the provided context
         doc.render(data)
         
