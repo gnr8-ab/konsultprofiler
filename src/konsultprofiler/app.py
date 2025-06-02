@@ -27,7 +27,7 @@ def process_template(data, output_filename, image_file=None):
         image_file (UploadedFile, optional): The uploaded image file
     """
     # Path to your template
-    template_path = "Mall 0.3.docx"
+    template_path = "Mall 0.4.docx"
     
     try:
         # Load the template
