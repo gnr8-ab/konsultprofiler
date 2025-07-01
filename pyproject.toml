@@ -1,11 +1,11 @@
 [project]
 name = "konsultprofiler"
 version = "0.1.0"
-description = "A tool for analyzing and creating consultant profiles"
+description = "Ett verktyg för att generera konsultprofiler och Word-dokument"
 requires-python = ">=3.8"
 dependencies = [
-    "python-docx>=1.1.2",
-    "docxtpl>=0.16.7",
+    "docxtpl",
+    "streamlit>=1.32.0"
 ]
 
 [build-system]
@@ -14,4 +14,10 @@ build-backend = "hatchling.build"
 
 [tool.rye]
 managed = true
-dev-dependencies = [] 
+dev-dependencies = []
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/konsultprofiler"] 

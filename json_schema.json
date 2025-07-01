@@ -1,0 +1,62 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+      "name": { "type": "string" },
+      "slogan": { "type": "string" },
+      "summary": { "type": "string" },
+      "expertise": { "type": "array", "items": { "type": "string" } },
+      "assignment": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "main_role": { "type": "string" },
+            "other_roles": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "client": { "type": "string" },
+            "period": { "type": "string" },
+            "description": { "type": "string" },
+            "approach": { "type": "string" }
+          },
+          "required": ["main_role", "other_roles", "client", "period", "description", "approach"]
+        }
+      },
+      "technologies": { "type": "array", "items": { "type": "string" } },
+      "methods": { "type": "array", "items": { "type": "string" } },
+      "tools": { "type": "array", "items": { "type": "string" } },
+      "languages": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "language": { "type": "string" },
+            "level": { "type": "string" }
+          },
+          "required": ["language", "level"]
+        }
+      },
+      "educations": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "institution": { "type": "string" },
+            "focus": { "type": "string" },
+            "period": { "type": "string" }
+          },
+          "required": ["institution", "focus", "period"]
+        }
+      },
+      "certifications": { "type": "array", "items": { "type": "string" } },
+      "email": { "type": "string" },
+      "phone": { "type": "string" },
+      "linkedin": { "type": "string" },
+      "location": { "type": "string" },
+      "employment_type": { "type": "string" },
+      "employment_by": { "type": "string" }
+    },
+    "required": ["name", "slogan", "summary", "assignment"]
+  }
