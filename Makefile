@@ -1,10 +1,9 @@
+# Always start by activating the virtual environment: source .venv/bin/activate
 .PHONY: venv activate sync run stop
 
 venv:
 	uv venv
 
-activate:
-	.venv\Scripts\activate
 
 sync:
 	uv pip install docxtpl streamlit

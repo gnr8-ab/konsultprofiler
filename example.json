@@ -1,0 +1,125 @@
+{
+  "name": "Mattias Larsen",
+  "slogan": "AI Transformationsledare | GenAI Konceptutvecklare | Digital Strateg",
+  "summary": "Mattias är en innovativ transformationsledare med unik förmåga att omsätta komplexa teknologier till konkret affärsvärde.\n\nHan har djupgående erfarenhet av att leda omfattande AI-transformationer i stora organisationer som ASSA ABLOY, Telia och ICA.\n\nGenom att kombinera teknisk expertis med strategiskt affärstänkande har han konsekvent levererat exceptionella resultat - från att öka kampanjengagemang med 92% genom datadriven personalisering till att accelerera utvecklingsprocesser från veckor till timmar genom GenAI-implementation.",
+  "expertise": [
+    "GenAI Konceptutveckling & Implementation",
+    "AI-driven Innovation & Transformation",
+    "Förändringsledning & Kulturbyggande",
+    "Data Governance & Compliance",
+    "Agil Transformation & SAFe",
+    "Kompetensutveckling & Community Building"
+  ],
+  "assignment": [
+    {
+      "main_role": "AI Program Co-Lead",
+      "other_roles": [
+        "Change Agent",
+        "Innovation Lead",
+        "Mentor/Coach",
+        "Strategy Consultant",
+        "Program Manager"
+      ],
+      "client": "ASSA ABLOY",
+      "period": "December 2024 - April 2025",
+      "description": "Mattias arbetade som AI Transformation Leader & Competence Development Manager med strategisk kompetensuppbyggnad inom GenAI över hela organisationen.\n\nHan utvecklade och producerade utbildningsmaterial och videos för att öka AI-literacy samt faciliterade events och workshops för att skapa engagemang kring AI-möjligheter.\n\nMattias koordinerade och lyfte fram framgångsrika AI-projekt som inspiration, byggde broar mellan tekniska och affärsavdelningar genom praktisk AI-tillämpning, och designade och implementerade ramverk för säker AI-användning.",
+      "approach": "Hypotesdriven utveckling med tydliga, mätbara mål. Balanserar innovation med governance och compliance genom att bygga självförbättrande team och communities. Fokus på värdeskapande och hållbar förändring med integration av AI i existerande processer och system."
+    },
+    {
+      "main_role": "AI Transformationsledare & Digital Strateg",
+      "other_roles": [
+        "Release Train Engineer (RTE)",
+        "Change Agent",
+        "Innovation Lead",
+        "Technical Lead",
+        "Solution Architect",
+        "Scrum Master"
+      ],
+      "client": "Telia",
+      "period": "2019 - maj 2024",
+      "description": "Mattias ledde banbrytande implementation av GenAI genom Copilot, vilket reducerade designtid från veckor till timmar.\n\nHan vägledde tre Agile Release Trains i optimal användning av AI-teknologi och utvecklade och implementerade ramverk för säker och effektiv AI-adoption.\n\nMattias byggde självförbättrande AI-communities för hållbar kompetensutveckling och drev kulturförändring mot AI-driven innovation med fokus på värdeskapande.",
+      "approach": "Integration av GenAI i meeting- och arbetsflödessystem för att förbättra kommunikation och beslutsfattande. Realtidsvisualisering av tankar och idéer energiserade möten och accelererade strategisk beslutsfattning med fokus på team-engagement."
+    },
+    {
+      "main_role": "Digital Transformationsledare",
+      "other_roles": [
+        "Data Architect",
+        "Solution Architect",
+        "Technical Lead",
+        "Business Analyst",
+        "Innovation Lead"
+      ],
+      "client": "ICA Gruppen",
+      "period": "2016 - 2018",
+      "description": "Mattias designade och implementerade Customer360 plattform som transformerade datadriven beslutsfattning. Reducerade tiden för kundinsikter från 16 veckor till 15 minuter och ökade kampanjengagemang från 22% till 42%.\n\nHan möjliggjorde realtidsanalys av kundbeteende över 800+ attribut och realiserade årliga licensbesparingar på 1.6 MSEK.\n\nMattias utvecklade GDPR-kompatibel arkitektur med automatiserad governance och etablerade datakvalitetsambassadörer för att bygga en hållbar datakultur.",
+      "approach": "Integrerade Cloudera med Oracle för att skapa skalbara, datadrivna strategier. Fokus på förbättrad kundnöjdhet och beredskap för framtida trender genom realtidsrespons på konsumentbeteendeförändringar."
+    }
+  ],
+  "technologies": [
+    "GenAI (Copilot, ChatGPT)",
+    "RAG",
+    "Prediktiv analys",
+    "Python",
+    "React",
+    "FastAPI",
+    "Cloud Computing",
+    "Azure",
+    "AWS",
+    "Cloudera",
+    "Oracle"
+  ],
+  "methods": [
+    "Hypotesdriven utveckling",
+    "Agil utveckling",
+    "SAFe",
+    "DevOps",
+    "Community Building",
+    "Lean",
+    "Design Thinking",
+    "Data Governance Framework",
+    "Change Management (ADKAR/Kotter)"
+  ],
+  "tools": [
+    "Jira",
+    "PowerBI",
+    "GitHub",
+    "Copilot",
+    "ChatGPT",
+    "Claude",
+    "Azure DevOps",
+    "Databricks",
+    "Miro/Mural"
+  ],
+  "languages": [
+    {
+      "language": "Swedish",
+      "level": "Modersmål"
+    },
+    {
+      "language": "English",
+      "level": "Professionell arbetsnivå"
+    },
+    {
+      "language": "Spanish",
+      "level": "Begränsad arbetsnivå"
+    }
+  ],
+  "educations": [
+    {
+      "institution": "Uppsala Universitet",
+      "focus": "MSc Teknisk Fysik",
+      "period": "1998 - 2004"
+    }
+  ],
+  "certifications": [
+    "SAFe Program Consultant (SPC)",
+    "ITIL-certifierad",
+    "Get Ready for Generative AI"
+  ],
+  "email": "mattias.larsen@icloud.com",
+  "phone": "",
+  "linkedin": "www.linkedin.com/in/mattiaslarsen",
+  "location": "Greater Stockholm Metropolitan Area",
+  "employment_type": "Consultant",
+  "employment_by": "GNR8"
+}

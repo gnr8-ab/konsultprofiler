@@ -66,7 +66,14 @@ def process_template(data, output_filename, image_file=None):
             data['profile_image'] = None
         
         # Lägg till 'assignments' för kompatibilitet med mallen
-        data['assignments'] = data.get('assignment', [])
+        assignments = data.get('assignment', [])
+        # Kombinera roller till en sträng för varje assignment
+        for assignment in assignments:
+            if 'roles' in assignment and assignment['roles']:
+                assignment['role'] = ', '.join(assignment['roles'])
+        data['assignments'] = assignments
+        # Lägg till 'educations' för kompatibilitet med mallen
+        data['educations'] = data.get('educations', [])
         # Render the template with the provided context
         doc.render(data)
         
@@ -149,29 +156,30 @@ if uploaded_file is not None:
         data['slogan'] = st.text_input("Slogan", value=data.get('slogan', ''))
         data['summary'] = st.text_area("Sammanfattning", value=data.get('summary', ''), height=150)
         
+        # Objectives (för kompatibilitet med mallen)
+        data['objectives'] = st.text_area("Mål/Objectives", value=data.get('objectives', ''), height=100)
+        
         # Expertise
         st.subheader("Expertis")
         expertise = data.get('expertise', [])
-        for i in range(3):
-            if i < len(expertise):
-                expertise[i] = st.text_input(f"Expertis {i+1}", value=expertise[i])
-            else:
-                expertise.append(st.text_input(f"Expertis {i+1}", value=""))
+        
+        # Add new expertise button
+        if st.button("Lägg till expertis"):
+            expertise.append("")
+        
+        for i, exp in enumerate(expertise):
+            col1, col2 = st.columns([3, 1])
+            with col1:
+                expertise[i] = st.text_input(f"Expertis {i+1}", value=exp, key=f"exp_{i}")
+            with col2:
+                if st.button(f"Ta bort {i+1}", key=f"remove_exp_{i}"):
+                    expertise.pop(i)
+                    st.rerun()
         data['expertise'] = expertise
 
         # Assignments
         st.subheader("Uppdrag")
         assignments = data.get('assignment', [])
-        
-        # Add new assignment button
-        if st.button("Lägg till nytt uppdrag"):
-            assignments.append({
-                "role": "",
-                "client": "",
-                "period": "",
-                "description": "",
-                "approach": ""
-            })
         
         # Display existing assignments
         for i, assignment in enumerate(assignments):
@@ -185,6 +193,22 @@ if uploaded_file is not None:
             
             assignment['description'] = st.text_area(f"Beskrivning {i+1}", value=assignment.get('description', ''), height=100)
             assignment['approach'] = st.text_area(f"Approach {i+1}", value=assignment.get('approach', ''), height=100)
+            
+            # Roles field
+            roles = assignment.get('roles', [])
+            st.write("Roller:")
+            if st.button(f"Lägg till roll för uppdrag {i+1}", key=f"add_role_{i}"):
+                roles.append("")
+            
+            for j, role in enumerate(roles):
+                col1, col2 = st.columns([3, 1])
+                with col1:
+                    roles[j] = st.text_input(f"Roll {j+1} för uppdrag {i+1}", value=role, key=f"role_{i}_{j}")
+                with col2:
+                    if st.button(f"Ta bort roll {j+1}", key=f"remove_role_{i}_{j}"):
+                        roles.pop(j)
+                        st.rerun()
+            assignment['roles'] = roles
             
             if st.button(f"Ta bort uppdrag {i+1}", key=f"remove_{i}"):
                 assignments.pop(i)
@@ -204,87 +228,119 @@ if uploaded_file is not None:
 
         # Skills and Technologies
         st.subheader("Kompetenser och verktyg")
-        col1, col2, col3 = st.columns(3)
-        with col1:
-            technologies = data.get('technologies', [])
-            st.write("Teknologier")
-            for i in range(3):
-                if i < len(technologies):
-                    technologies[i] = st.text_input(f"Teknologi {i+1}", value=technologies[i], key=f"tech_{i}")
-                else:
-                    technologies.append(st.text_input(f"Teknologi {i+1}", value="", key=f"tech_{i}"))
-            data['technologies'] = technologies
+        
+        # Technologies
+        st.write("**Teknologier**")
+        technologies = data.get('technologies', [])
+        if st.button("Lägg till teknologi"):
+            technologies.append("")
+        
+        for i, tech in enumerate(technologies):
+            col1, col2 = st.columns([3, 1])
+            with col1:
+                technologies[i] = st.text_input(f"Teknologi {i+1}", value=tech, key=f"tech_{i}")
+            with col2:
+                if st.button(f"Ta bort {i+1}", key=f"remove_tech_{i}"):
+                    technologies.pop(i)
+                    st.rerun()
+        data['technologies'] = technologies
 
-        with col2:
-            methods = data.get('methods', [])
-            st.write("Metoder")
-            for i in range(3):
-                if i < len(methods):
-                    methods[i] = st.text_input(f"Metod {i+1}", value=methods[i], key=f"method_{i}")
-                else:
-                    methods.append(st.text_input(f"Metod {i+1}", value="", key=f"method_{i}"))
-            data['methods'] = methods
+        # Methods
+        st.write("**Metoder**")
+        methods = data.get('methods', [])
+        if st.button("Lägg till metod"):
+            methods.append("")
+        
+        for i, method in enumerate(methods):
+            col1, col2 = st.columns([3, 1])
+            with col1:
+                methods[i] = st.text_input(f"Metod {i+1}", value=method, key=f"method_{i}")
+            with col2:
+                if st.button(f"Ta bort {i+1}", key=f"remove_method_{i}"):
+                    methods.pop(i)
+                    st.rerun()
+        data['methods'] = methods
 
-        with col3:
-            tools = data.get('tools', [])
-            st.write("Verktyg")
-            for i in range(3):
-                if i < len(tools):
-                    tools[i] = st.text_input(f"Verktyg {i+1}", value=tools[i], key=f"tool_{i}")
-                else:
-                    tools.append(st.text_input(f"Verktyg {i+1}", value="", key=f"tool_{i}"))
-            data['tools'] = tools
+        # Tools
+        st.write("**Verktyg**")
+        tools = data.get('tools', [])
+        if st.button("Lägg till verktyg"):
+            tools.append("")
+        
+        for i, tool in enumerate(tools):
+            col1, col2 = st.columns([3, 1])
+            with col1:
+                tools[i] = st.text_input(f"Verktyg {i+1}", value=tool, key=f"tool_{i}")
+            with col2:
+                if st.button(f"Ta bort {i+1}", key=f"remove_tool_{i}"):
+                    tools.pop(i)
+                    st.rerun()
+        data['tools'] = tools
 
         # Languages
         st.subheader("Språk")
         languages = data.get('languages', [
-            {"language": "Swedish", "level": ""},
-            {"language": "English", "level": ""},
-            {"language": "Spanish", "level": ""}
+            {"language": "Svenska", "level": "Modersmål"},
+            {"language": "Engelska", "level": "Flytande"},
+            {"language": "Spanska", "level": "Grundläggande"}
         ])
         
+        if st.button("Lägg till språk"):
+            languages.append({"language": "", "level": ""})
+        
         for i, lang in enumerate(languages):
-            col1, col2 = st.columns(2)
+            col1, col2, col3 = st.columns([2, 2, 1])
             with col1:
                 lang['language'] = st.text_input(f"Språk {i+1}", value=lang.get('language', ''), key=f"lang_{i}")
             with col2:
                 lang['level'] = st.text_input(f"Nivå {i+1}", value=lang.get('level', ''), key=f"level_{i}")
+            with col3:
+                if st.button(f"Ta bort {i+1}", key=f"remove_lang_{i}"):
+                    languages.pop(i)
+                    st.rerun()
         data['languages'] = languages
 
         # Education
         st.subheader("Utbildning")
-        education = data.get('education', [])
+        educations = data.get('educations', [])
         
         if st.button("Lägg till utbildning"):
-            education.append({
+            educations.append({
                 "institution": "",
                 "focus": "",
                 "period": ""
             })
         
-        for i, edu in enumerate(education):
+        for i, edu in enumerate(educations):
             st.markdown(f"### Utbildning {i+1}")
-            col1, col2 = st.columns(2)
+            col1, col2, col3 = st.columns([2, 2, 1])
             with col1:
                 edu['institution'] = st.text_input(f"Institution {i+1}", value=edu.get('institution', ''), key=f"inst_{i}")
-                edu['focus'] = st.text_input(f"Inriktning {i+1}", value=edu.get('focus', ''), key=f"focus_{i}")
             with col2:
+                edu['focus'] = st.text_input(f"Inriktning {i+1}", value=edu.get('focus', ''), key=f"focus_{i}")
                 edu['period'] = st.text_input(f"Period {i+1}", value=edu.get('period', ''), key=f"edu_period_{i}")
-            
-            if st.button(f"Ta bort utbildning {i+1}", key=f"remove_edu_{i}"):
-                education.pop(i)
-                st.rerun()
+            with col3:
+                if st.button(f"Ta bort {i+1}", key=f"remove_edu_{i}"):
+                    educations.pop(i)
+                    st.rerun()
         
-        data['education'] = education
+        data['educations'] = educations
 
-        # Certifications
-        st.subheader("Certifieringar")
+        # Certifications and Training
+        st.subheader("Certifieringar och utbildningar")
         certifications = data.get('certifications', [])
-        for i in range(2):
-            if i < len(certifications):
-                certifications[i] = st.text_input(f"Certifiering {i+1}", value=certifications[i], key=f"cert_{i}")
-            else:
-                certifications.append(st.text_input(f"Certifiering {i+1}", value="", key=f"cert_{i}"))
+        
+        if st.button("Lägg till certifiering/utbildning"):
+            certifications.append("")
+        
+        for i, cert in enumerate(certifications):
+            col1, col2 = st.columns([3, 1])
+            with col1:
+                certifications[i] = st.text_input(f"Certifiering/Utbildning {i+1}", value=cert, key=f"cert_{i}")
+            with col2:
+                if st.button(f"Ta bort {i+1}", key=f"remove_cert_{i}"):
+                    certifications.pop(i)
+                    st.rerun()
         data['certifications'] = certifications
 
         # Employment Information
